@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move move</title>
+
+    <link rel="stylesheet" href="css/move-move.css">
+    
+    <script src="js/move-move2.js" defer></script>
+</head>
+<body>
+    <div id="controle">
+        <button onclick="move(this.innerHTML)">^</button>
+        <div>
+            <button onclick="move(this.innerHTML)">&lt;</button>
+            <button onclick="move(this.innerHTML)">&gt;</button>
+        </div>
+        <button onclick="move(this.innerHTML)">v</button>
+    </div>
+    <div id="painel">
+        <div id="objeto"></div>
+    </div>
+</body>
+</html>

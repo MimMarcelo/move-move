@@ -1,0 +1,25 @@
+html, body{
+    height: 100%;
+}
+#controle{
+    float: left;
+    text-align: center;
+}
+#controle div button{
+    margin-left: 1em;
+    margin-right: 1em;
+}
+#painel{
+    position: relative;
+    width: 80%;
+    height: 80%;
+    top:5%;
+    background-color: #49c;
+    margin: auto;
+}
+#objeto{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #c44;
+}
