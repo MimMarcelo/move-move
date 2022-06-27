@@ -3,23 +3,103 @@
  */
 
 // Capitura o clique do teclado
-document.body.onkeydown = function(e) {move(e.keyCode);}
+document.body.onkeydown = function (e) { move(e.keyCode); }
 
-// Obtém referência para o objeto que deve ser movido
-const objeto = document.querySelector("#objeto");
+const PAINEL = document.querySelector("#painel");
+const PONTOS = document.querySelector("#pontos");
+let passatempo = null;
+let direcao = 39;
+let cobra = [];
+let obstaculo = null;
+let tamanho = 0;
 
-// Define os valores iniciais do top e do left
-objeto.style.top = 0;
-objeto.style.left = 0;
+function start() {
+    if (passatempo == null) {
+        tamanho = 0;
+        obstaculo = randomPosition(newElement());
+        cobra[tamanho] = newElement();
+        passatempo = setInterval(loop, 200);
+    }
+}
+
+function loop() {
+    move(direcao);
+    checkColision();
+    PONTOS.innerHTML = tamanho;
+}
+
+function stop() {
+    if (passatempo != null) {
+        clearInterval(passatempo);
+        passatempo = null;
+    }
+}
+
+function checkColision(){
+    let left = cobra[0].style.left;
+    let top = cobra[0].style.top;
+    if(left == obstaculo.style.left && top == obstaculo.style.top){
+        tamanho++;
+        cobra[tamanho] = updatePosition(
+            newElement(),
+            parseInt(obstaculo.style.left),
+            parseInt(obstaculo.style.top));
+        randomPosition(obstaculo);
+        return;
+    }
+    for(let i = tamanho; i > 0; i--){
+        if(left == cobra[i].style.left && top == cobra[i].style.top){
+            stop();
+            alert("Game Over!");
+            return;
+        }
+    }
+    left = parseInt(left);
+    top = parseInt(top);
+    if(left < 0 || top < 0 || left >= 400 || top >= 400){
+        stop();
+        alert("Game Over!");
+        return;
+    }
+}
+
+function newElement() {
+    let item = document.createElement("div");
+    item.setAttribute("class", "item");
+    item.style.left = "0px";
+    item.style.top = "0px";
+    PAINEL.appendChild(item);
+    return item;
+}
+
+function updatePosition(item, left, top) {
+    item.style.left = left + "px";
+    item.style.top = top + "px";
+    return item;
+}
+
+function randomPosition(item) {
+    return updatePosition(
+        item,
+        (Math.floor(Math.random() * 20) * 20),
+        (Math.floor(Math.random() * 20) * 20));
+}
 
 // Função que realiza o movimento
-function move(controle){
+function move(controle) {
     // Obtém os valores atuais de top e left
-    let top = parseInt(objeto.style.top);
-    let left = parseInt(objeto.style.left);
+    let top = parseInt(cobra[0].style.top);
+    let left = parseInt(cobra[0].style.left);
+
+    if((direcao == 38 && controle == 40) ||
+    (direcao == 40 && controle == 38) ||
+    (direcao == 37 && controle == 39) ||
+    (direcao == 39 && controle == 37))
+        return;
+    direcao = controle;
 
     // De acordo com o controle pressionado...
-    switch(controle){
+    switch (controle) {
         case 38: // Tecla para cima
         case "^": // Para cima, diminui o valor de top
             top -= 20;
@@ -40,7 +120,11 @@ function move(controle){
             console.log(controle);
     }
 
+    for(let i = tamanho; i > 0; i--){
+        updatePosition(cobra[i],
+            parseInt(cobra[i-1].style.left),
+            parseInt(cobra[i-1].style.top));
+    }
     //Atualiza os valores de top e left do objeto
-    objeto.style.top = top + "px";
-    objeto.style.left = left + "px";
+    updatePosition(cobra[0], left, top);
 }

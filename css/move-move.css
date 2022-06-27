@@ -1,5 +1,8 @@
+*{
+    box-sizing: border-box;
+}
 html, body{
-    height: 100%;
+    /*height: 100%;*/
 }
 #controle{
     float: left;
@@ -11,15 +14,27 @@ html, body{
 }
 #painel{
     position: relative;
-    width: 80%;
-    height: 80%;
+    width: 400px;
+    height: 400px;
     top:5%;
     background-color: #49c;
     margin: auto;
 }
-#objeto{
+.item{
     position: absolute;
     width: 20px;
     height: 20px;
     background-color: #c44;
+}
+.parcial{
+    margin: auto;
+    width: 400px;
+    background-color: #ddd;
+    padding: 2em;
+}
+.parcial div{
+    text-align: center;
+}
+.parcial button{
+    padding: 1em;
 }

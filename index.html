@@ -11,6 +11,15 @@
     <script src="js/move-move2.js" defer></script>
 </head>
 <body>
+    <div class="parcial">
+        <p>Pontos: 
+            <span id="pontos"></span>
+        </p>
+        <div>
+            <button onclick="start()">start</button>
+            <button onclick="stop()">stop</button>
+        </div>
+    </div>
     <div id="controle">
         <button onclick="move(this.innerHTML)">^</button>
         <div>
@@ -20,7 +29,6 @@
         <button onclick="move(this.innerHTML)">v</button>
     </div>
     <div id="painel">
-        <div id="objeto"></div>
     </div>
 </body>
 </html>
